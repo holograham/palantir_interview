@@ -16,6 +16,7 @@ public class DigitCount
 			testBruteForceMethod();
 			testLogMethod();
 			testOptimizedMethod();
+			testOneLineOptimizedMethod();
 		}
 		
 		long startTime = System.currentTimeMillis();
@@ -43,10 +44,15 @@ public class DigitCount
 		
 		System.out.println("Total elapsed time in execution of optimized method is: "+ (endTime-startTime)+"ms");
 		
+		startTime = System.currentTimeMillis();
+		testOneLineOptimizedMethod();
+		endTime = System.currentTimeMillis();
+		
+		System.out.println("Total elapsed time in execution of one line optimized method is: "+ (endTime-startTime)+"ms");
+		
 	}
 
 	// brute force method
-	// O(n)
 	private static int getNumDigitsBruteForceMethod(int x)
 	{
 		int digits = 1;
@@ -73,7 +79,6 @@ public class DigitCount
 		return digits;
 	}
 	
-	//O(log(n))
 	private static int getNumDigitsOptimized(int x)
 	{
 		if (x < 100000)
@@ -108,6 +113,13 @@ public class DigitCount
 				}
 			}
 		}
+	}
+	
+	private static int getNumDigitsOneLineOptimized(int x)
+	{
+		return (x >= 1000000000) ? 9 : (x >= 100000000) ? 8 : (x >= 10000000) ? 7 : 
+		    (x >= 1000000) ? 6 : (x >= 100000) ? 5 : (x >= 10000) ? 4 : 
+		    (x >= 1000) ? 3 : (x >= 100) ? 2 : (x >= 10) ? 1 : 0;
 	}
 	
 	private static int getNumDigitsStringMethod(int x)
@@ -172,6 +184,21 @@ public class DigitCount
 			x = getNumDigitsOptimized(i);
 		for (int i = 1000000; i < 2000000000; i += 200)
 			x = getNumDigitsOptimized(i);
+
+		return x;
+	}
+	
+	private static int testOneLineOptimizedMethod()
+	{
+		int x = 0;
+		for (int i = 0; i < 1000; i++)
+			x = getNumDigitsOneLineOptimized(i);
+		for (int i = 1000; i < 100000; i += 10)
+			x = getNumDigitsOneLineOptimized(i);
+		for (int i = 100000; i < 1000000; i += 100)
+			x = getNumDigitsOneLineOptimized(i);
+		for (int i = 1000000; i < 2000000000; i += 200)
+			x = getNumDigitsOneLineOptimized(i);
 
 		return x;
 	}
